@@ -1,0 +1,10 @@
+node_modules/
+backend/node_modules/
+backend/.env
+backend/target/
+frontend/node_modules/
+frontend/.env
+frontend/.env.local
+.DS_Store
+dist/
+build/
