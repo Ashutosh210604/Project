@@ -12,7 +12,6 @@ async function userRegisterController(req, res){
   if(isExist){
     return res.status(422).json({
       message : "User already exists with email",
-      status : failed
     })
   }
 
@@ -108,6 +107,19 @@ async function userLogoutController(req, res){
   })
 }
 
+/**Google OAuth20 */
+async function oauthCallback(req, res){
+  const token = jwt.sign(
+    {userId : req.user._id},
+    process.env.JWT_SECRET,
+    {expiresIn : "3d"}
+  );
+
+  res.cookie("token", token, {httpOnly : true});
+  // res.redirect(`${process.env.FRONTEND_URL}/dashboard`);
+}
+
 module.exports = {userRegisterController,
-  userLoginController, userLogoutController
+  userLoginController, userLogoutController,
+  oauthCallback
 }

@@ -16,10 +16,16 @@ const userSchema = new mongoose.Schema({
   },
   password:{
     type: String,
-    required : [true, "Password is required for creating an account"],
+    required : function(){
+      return !this.googleId; // if googleId exists then we don't need password
+    },
     minlenth : [6, "Password should contain more than 6 character"],
     select : false
   },
+  googleId:{
+    type: String,
+    default: null
+  }
 },{
   timestamp : true
 })
