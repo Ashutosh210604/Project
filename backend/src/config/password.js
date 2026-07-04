@@ -15,7 +15,8 @@ passport.use(new GoogleStrategy({
 
 async (accessToken, refreshToken, Profile, done)=>{
   //Find or create the user in your database:
-  let user = await userModel.findOne({email: profile.emails[0].value});
+  const email = profile.emails[0].value;
+  let user = await userModel.findOne({email: email});
 
   if(!user){
     user = await userModel.create({

@@ -115,8 +115,13 @@ async function oauthCallback(req, res){
     {expiresIn : "3d"}
   );
 
-  res.cookie("token", token, {httpOnly : true});
-  // res.redirect(`${process.env.FRONTEND_URL}/dashboard`);
+  res.cookie("token", token, {
+    httpOnly: true,  
+    secure: false,     
+    sameSite: 'lax',  
+    maxAge: 3600000  
+  });
+  res.redirect(`${process.env.FRONTEND_URL}/`);
 }
 
 module.exports = {userRegisterController,
